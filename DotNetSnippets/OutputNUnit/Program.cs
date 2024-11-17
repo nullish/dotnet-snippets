@@ -1,4 +1,4 @@
-﻿/// <summary Load a locally stored XML file and convert it to CSV also saved locally 
+﻿/// <summary> Load a locally stored XML file and convert it to CSV also saved locally. Uses subset of available fields.
 /// https://learn.microsoft.com/en-us/dotnet/standard/linq/generate-text-files-xml 
 /// </summary>
 
@@ -19,6 +19,7 @@ internal class Program
             Environment.Exit(1);
         }
 
+        // Construct absolute path for input and output files based on user supplied relative paths
         PathManager _pathManager = new PathManager();
         String pathInput = _pathManager.MakeRelativePath(args[1]);
         String pathOutput = _pathManager.MakeRelativePath(args[2]);

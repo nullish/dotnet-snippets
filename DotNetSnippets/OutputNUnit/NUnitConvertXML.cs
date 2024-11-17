@@ -10,6 +10,9 @@ namespace OutputNUnit
     public class NUnitConvertXML
     {
         public void ConvertCSV(string pathInput, string pathOutput)
+        /// <summary>Convert NUnit format XML into CSV, selected fields only </summary>
+        /// <param name="pathInput">Relative path for input file</param>
+        /// <param name="pathOutput">Relative path for output</param> 
         {
             XElement xmlIn = XElement.Load(pathInput);
             XElement xmlFiltered = new XElement("xml-filtered");
