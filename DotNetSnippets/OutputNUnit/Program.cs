@@ -6,26 +6,40 @@ using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using CommandLine;
 
 namespace OutputNUnit;
 
+internal class Options
+{
+    [Option('i', "input", Required = true, HelpText = "Input XML file to be processed.")]
+    public String InputFile { get; set; }
+
+    [Option('o', "output", Required = true, HelpText = "Output txt file to be processed.")]
+    public String OutFile { get; set; }
+}
 internal class Program
 {
-    private static void Main(string[] args)
+    static void Main(string[] args)
     {
-        // Get first two command line arguments and check for empty strings
-        if (args.Length < 3) {
-            Console.WriteLine("Please supply command line paramaters for a relative Input path and Output path.");
-            Environment.Exit(1);
-        }
-
+        CommandLine.Parser.Default.ParseArguments<Options>(args)
+          .WithParsed(RunOptions)
+          .WithNotParsed(HandleParseError);
+    }
+    static void RunOptions(Options opts)
+    {
         // Construct absolute path for input and output files based on user supplied relative paths
+        
         PathManager _pathManager = new PathManager();
-        String pathInput = _pathManager.MakeRelativePath(args[1]);
-        String pathOutput = _pathManager.MakeRelativePath(args[2]);
+        String pathInput = _pathManager.MakeRelativePath(opts.InputFile);
+        String pathOutput = _pathManager.MakeRelativePath(opts.OutFile);
 
         NUnitConvertXML _nUnitConvertXML = new NUnitConvertXML();
         _nUnitConvertXML.ConvertCSV(pathInput, pathOutput);
+    }
+    static void HandleParseError(IEnumerable<Error> errs)
+    {
+        Console.WriteLine(errs);
     }
 }
 

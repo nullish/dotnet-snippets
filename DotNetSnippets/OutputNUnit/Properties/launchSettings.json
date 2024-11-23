@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "OutputNUnit": {
+      "commandName": "Project",
+      "commandLineArgs": "-i Input\\nunit-results.xml -o Output\\out.txt"
+    }
+  }
+}
