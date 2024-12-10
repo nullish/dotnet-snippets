@@ -18,7 +18,7 @@ namespace OutputNUnit
             XElement xmlFiltered = new XElement("xml-filtered");
             xmlFiltered.Add(xmlIn.Descendants("test-case"));
 
-            string header = "Name|Full name|Start time|Result|Category" + Environment.NewLine;
+            string header = "Name|Full name|Category|Start time|Result" + Environment.NewLine;
 
             string csv =
                 (from el in xmlFiltered.Elements("test-case")
@@ -26,9 +26,9 @@ namespace OutputNUnit
                      string.Format("{0}|{1}|{2}|{3}|{4}|{5}",
                          (string)el.Attribute("name"),
                          (string)el.Attribute("fullname"),
+                         (string)el.Element("properties").Elements("property")?.FirstOrDefault(p => p.Attribute("name")?.Value == "Category")?.Attribute("value") ?? "-",
                          (string)el.Attribute("start-time"),
                          (string)el.Attribute("result"),
-                         (string)el.Element("properties").Element("property").Attribute("value"),
                          Environment.NewLine
                      )
                 )
