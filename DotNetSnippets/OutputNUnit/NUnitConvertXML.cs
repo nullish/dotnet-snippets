@@ -26,7 +26,7 @@ namespace OutputNUnit
             XElement xmlFiltered = new XElement("xml-filtered");
             xmlFiltered.Add(xmlIn.Descendants("test-case"));
 
-            string header = "Name|Full name|Category|Start time|Result" + Environment.NewLine;
+            string header = "Name|Full name|Category|Start time|Result|Error detail" + Environment.NewLine;
 
             string csv =
                 (from el in xmlFiltered.Elements("test-case")
