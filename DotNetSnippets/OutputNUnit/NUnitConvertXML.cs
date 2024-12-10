@@ -34,7 +34,7 @@ namespace OutputNUnit
                      string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}",
                          (string)el.Attribute("name"),
                          (string)el.Attribute("fullname"),
-                         (string)el.Element("properties").Elements("property")?.FirstOrDefault(p => p.Attribute("name")?.Value == "Category")?.Attribute("value") ?? "-",
+                         (string)el.Element("properties")?.Elements("property")?.FirstOrDefault(p => p.Attribute("name")?.Value == "Category")?.Attribute("value") ?? "-",
                          (string)el.Attribute("start-time"),
                          (string)el.Attribute("result"),
                          MultiToSingleLine((string)el?.Element("failure")?.Element("message") ?? "-"),
